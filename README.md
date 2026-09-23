@@ -13,6 +13,8 @@ npm install
 npm run dev
 ```
 
+Local play is at http://localhost:5173/touching-grass-simulator/ — same path the live site uses.
+
 ## Touch grass
 
 | Input | What happens |

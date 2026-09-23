@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/touching-grass-simulator/" : "/",
+export default defineConfig({
+  base: "/touching-grass-simulator/",
   server: {
     host: "0.0.0.0",
     port: 5173,
@@ -15,4 +15,4 @@ export default defineConfig(({ command }) => ({
     sourcemap: false,
     chunkSizeWarningLimit: 700,
   },
-}));
+});
