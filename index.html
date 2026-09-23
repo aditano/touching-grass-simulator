@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#e39a58" />
+    <meta name="description" content="Touching Grass Simulator. Drag through a field. Therapy can wait." />
+    <title>Touching Grass</title>
+    <link rel="icon" href="%BASE_URL%favicon.svg" type="image/svg+xml" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #e39a58;
+        overflow: hidden;
+      }
+      #app {
+        position: fixed;
+        inset: 0;
+      }
+      #view {
+        width: 100%;
+        height: 100%;
+        display: block;
+        touch-action: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="view" role="application" aria-label="Grass field. Drag to touch the grass."></canvas>
+      <div class="scrim" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+      <header class="top">
+        <p class="eyebrow">Simulator</p>
+        <h1 class="brand"><span class="blade" aria-hidden="true"></span>Touching Grass</h1>
+      </header>
+      <button type="button" class="mute" id="mute" aria-label="Mute sound" aria-pressed="false">
+        <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 10h3.2L12 6.2v11.6L7.2 14H4z" fill="currentColor" />
+          <path d="M15.5 9.2a4.2 4.2 0 0 1 0 5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          <path d="M17.6 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+        <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 10h3.2L12 6.2v11.6L7.2 14H4z" fill="currentColor" />
+          <path d="M16 9.5 21 14.5M21 9.5 16 14.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        </svg>
+      </button>
+      <p class="hint" id="hint">Drag through the grass</p>
+      <footer class="hud">
+        <p class="quip" id="quip" aria-live="polite"></p>
+        <div class="card">
+          <div class="stats" role="group" aria-label="How outside you are">
+            <div class="stat">
+              <span class="stat-value" id="touches">0</span>
+              <span class="stat-label">touches</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="streak">0</span>
+              <span class="stat-label">streak</span>
+              <span class="best" id="best"></span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="mood">idle</span>
+              <span class="stat-label">serotonin</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="outside">0:00</span>
+              <span class="stat-label">outside</span>
+            </div>
+            <div class="sero" aria-hidden="true"><span id="sero-fill"></span></div>
+          </div>
+        </div>
+      </footer>
+      <p class="fallback" id="fallback" hidden>This lawn needs WebGL. An actual window also works.</p>
+    </div>
+    <noscript><p class="fallback">JavaScript mows this lawn.</p></noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
