@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://aditano.github.io/touching-grass-simulator/",
   "description": "A small outdoor simulator where you touch the grass.",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "tsc --noEmit && vite build",
