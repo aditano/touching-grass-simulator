@@ -53,8 +53,14 @@ function pixelRatio(): number {
 function showFallback(): void {
   const fallback = document.querySelector<HTMLElement>("#fallback");
   const canvas = document.querySelector<HTMLElement>("#view");
-  if (canvas) canvas.hidden = true;
-  if (fallback) fallback.hidden = false;
+  if (canvas) {
+    canvas.hidden = true;
+    canvas.setAttribute("aria-hidden", "true");
+  }
+  if (fallback) {
+    fallback.hidden = false;
+    fallback.setAttribute("role", "status");
+  }
 }
 
 function main(): void {
