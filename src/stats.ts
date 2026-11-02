@@ -67,7 +67,8 @@ export class Session {
     if (visible) this.outsideSeconds += dt;
     this.serotonin = 4 + (this.serotonin - 4) * Math.exp(-dt * 0.045);
     const line = milestoneQuip(before, this.outsideSeconds);
-    if (line) this.say(line, false);
+    // One-shot milestones must not lose to the quip throttle.
+    if (line) this.say(line, true);
   }
 
   press(now: number): void {
@@ -102,16 +103,21 @@ export class Session {
     this.serotonin = Math.min(100, this.serotonin + 7.4 * (1 - this.serotonin / 148));
 
     let line: string | null = null;
-    if (first) line = FIRST_TOUCH;
+    let force = false;
+    if (first) {
+      line = FIRST_TOUCH;
+      force = true;
+    }
     if (this.streak > this.best) {
       this.best = this.streak;
       writeNum(BEST_KEY, this.best);
       if (!line && (this.streak === 8 || this.streak % 20 === 0)) {
         line = "New personal best. The lawn is proud.";
+        force = true;
       }
     }
     if (!line && fromPress && this.touches % 4 === 0) line = pickQuip();
-    if (line) this.say(line, first);
+    if (line) this.say(line, force);
   }
 
   private say(text: string, force: boolean): void {
