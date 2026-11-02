@@ -310,7 +310,7 @@ function main(): void {
       world.followSky(camera.position.x, camera.position.y, camera.position.z);
       renderer.render(scene, camera);
     }
-    session.tick(dt, visible);
+    session.tick(dt, visible, now);
     hud.render(session.view());
     requestAnimationFrame(frame);
   }

@@ -62,10 +62,11 @@ export class Session {
     this.onQuip = onQuip;
   }
 
-  tick(dt: number, visible: boolean): void {
+  tick(dt: number, visible: boolean, now = performance.now()): void {
     const before = this.outsideSeconds;
     if (visible) this.outsideSeconds += dt;
     this.serotonin = 4 + (this.serotonin - 4) * Math.exp(-dt * 0.045);
+    if (this.streak > 0 && now - this.lastTouch > STREAK_WINDOW_MS) this.streak = 0;
     const line = milestoneQuip(before, this.outsideSeconds);
     // One-shot milestones must not lose to the quip throttle.
     if (line) this.say(line, true);
