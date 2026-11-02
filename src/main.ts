@@ -242,7 +242,10 @@ function main(): void {
     if (!finger) return;
     fingers.delete(event.pointerId);
     slots[finger.slot].decay = 3.1;
-    if (fingers.size === 0) app.classList.remove("is-down");
+    if (fingers.size === 0) {
+      app.classList.remove("is-down");
+      critters.hideRipple();
+    }
     try {
       if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
     } catch {
