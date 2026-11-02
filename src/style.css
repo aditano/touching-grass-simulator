@@ -48,6 +48,10 @@ body {
   cursor: crosshair;
 }
 
+#view[hidden] {
+  display: none;
+}
+
 #app.is-down #view {
   cursor: grabbing;
 }
