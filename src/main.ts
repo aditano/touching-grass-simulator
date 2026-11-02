@@ -152,13 +152,30 @@ function main(): void {
     return raycaster.ray.intersectPlane(groundPlane, hitPoint) ? hitPoint : null;
   }
 
-  function weakest(except = -1): number {
-    let pick = except === 0 ? 1 : 0;
+  function heldSlots(): Set<number> {
+    const held = new Set<number>();
+    for (const finger of fingers.values()) held.add(finger.slot);
+    return held;
+  }
+
+  function freeSlot(): number | null {
+    const held = heldSlots();
+    let pick = -1;
     for (let i = 0; i < slots.length; i += 1) {
-      if (i === except) continue;
-      if (slots[i].strength < slots[pick].strength) pick = i;
+      if (held.has(i)) continue;
+      if (pick < 0 || slots[i].strength < slots[pick].strength) pick = i;
     }
-    return pick;
+    return pick < 0 ? null : pick;
+  }
+
+  function weakest(except = -1): number | null {
+    const held = heldSlots();
+    let pick = -1;
+    for (let i = 0; i < slots.length; i += 1) {
+      if (i === except || held.has(i)) continue;
+      if (pick < 0 || slots[i].strength < slots[pick].strength) pick = i;
+    }
+    return pick < 0 ? null : pick;
   }
 
   function writeTouches(): void {
@@ -181,6 +198,8 @@ function main(): void {
     if (event.button !== 0 && event.pointerType === "mouse") return;
     const hit = groundHit(event);
     if (!hit) return;
+    const slot = freeSlot();
+    if (slot === null) return;
     event.preventDefault();
     try {
       canvas.setPointerCapture(event.pointerId);
@@ -192,7 +211,6 @@ function main(): void {
     hud.hideHint();
     app.classList.add("is-down");
     const radius = event.pointerType === "touch" ? 1.15 : 0.72;
-    const slot = weakest();
     plant(slot, hit.x, hit.z, 1, radius, 2.2);
     fingers.set(event.pointerId, { slot, x: hit.x, z: hit.z, markX: hit.x, markZ: hit.z });
     critters.rippleTo(hit.x, hit.z, 0.95, radius * 1.35);
@@ -217,7 +235,7 @@ function main(): void {
     const dz = hit.z - finger.z;
     if (dx * dx + dz * dz > 0.1) {
       const ghost = weakest(finger.slot);
-      plant(ghost, finger.x, finger.z, 0.82, radius * 0.92, 3.4);
+      if (ghost !== null) plant(ghost, finger.x, finger.z, 0.82, radius * 0.92, 3.4);
       finger.x = hit.x;
       finger.z = hit.z;
     }
