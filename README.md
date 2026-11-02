@@ -68,7 +68,7 @@ Third-party code keeps its own license.
 | Piece | Where it lives | License |
 | --- | --- | --- |
 | Three.js 0.185.1, including the fog, tonemapping, and color-space shader chunks inlined into the grass and sky shaders | npm package `three` | MIT |
-| Vite 8.3.0 | npm package `vite` (build tool) | MIT |
+| Vite 8.3.5 | npm package `vite` (build tool) | MIT |
 | TypeScript 5.8.3 | npm package `typescript` (typecheck only) | Apache-2.0 |
 | `@types/three` 0.185.4 | npm package `@types/three` (type declarations only) | MIT |
 | mulberry32, a pseudorandom number generator by Tommy Ettinger (2017) | `src/rng.ts` | CC0-1.0 |
