@@ -44,16 +44,20 @@ export function bindHud(): Hud {
     setHint(text) {
       hint.textContent = text;
       hint.classList.remove("is-gone");
+      hint.removeAttribute("aria-hidden");
     },
     hideHint() {
       hint.classList.add("is-gone");
+      hint.setAttribute("aria-hidden", "true");
     },
     showQuip(text) {
       quip.textContent = text;
       quip.classList.add("is-on");
+      quip.removeAttribute("aria-hidden");
       window.clearTimeout(quipTimer);
       quipTimer = window.setTimeout(() => {
         quip.classList.remove("is-on");
+        quip.setAttribute("aria-hidden", "true");
       }, 3200);
     },
     render(view) {

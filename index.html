@@ -25,6 +25,9 @@
         display: block;
         touch-action: none;
       }
+      #view[hidden] {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -47,7 +50,7 @@
           <path d="M16 9.5 21 14.5M21 9.5 16 14.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
         </svg>
       </button>
-      <p class="hint" id="hint">Drag through the grass</p>
+      <p class="hint" id="hint" role="status">Drag through the grass</p>
       <footer class="hud">
         <p class="quip" id="quip" aria-live="polite"></p>
         <div class="card">
